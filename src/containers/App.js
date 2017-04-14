@@ -1,6 +1,8 @@
 import React from 'react';
 import { Header} from 'components';
- 
+import { connect } from 'react-redux';
+import { getStatusRequest } from 'actions/authentication';
+
 class App extends React.Component {
     render(){
         /* Check whether current route is login or register using regex */
@@ -15,5 +17,19 @@ class App extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        status: state.authentication.status
+    };
+};
  
-export default App;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getStatusRequest: () => {
+            return dispatch(getStatusRequest());
+        }
+    };
+};
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(App);
